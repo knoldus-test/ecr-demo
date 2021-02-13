@@ -47,8 +47,8 @@ jobs:
   
     runs-on: ubuntu-latest
 
-    container:
-      image: 
+    # container:
+    #   image: 
 
     steps:
       - name: Github Checkout
@@ -65,8 +65,8 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v1
       
       - name: Run ECR image
-        run: docker run --rm $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-        with:
+        env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ecr-test-repo
           IMAGE_TAG: ${{ github.sha }}
+        run: docker run --rm $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG

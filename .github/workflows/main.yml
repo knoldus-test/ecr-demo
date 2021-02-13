@@ -46,6 +46,7 @@ jobs:
   get_ecr_image:
   
     runs-on: ubuntu-latest
+    needs: build
 
     container:
       image: 133615223499.dkr.ecr.ap-south-1.amazonaws.com/ecr-test-repo:latest

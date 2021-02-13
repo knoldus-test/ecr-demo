@@ -38,7 +38,7 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ecr-test-repo
-          IMAGE_TAG: ${{ github.sha }}
+          IMAGE_TAG: latest ##${{ github.sha }}
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
@@ -47,26 +47,37 @@ jobs:
   
     runs-on: ubuntu-latest
 
-    # container:
-    #   image: 
-
-    steps:
-      - name: Github Checkout
-        uses: actions/checkout@v2
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-south-1
-
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
+    container:
+      image: 133615223499.dkr.ecr.ap-south-1.amazonaws.com/ecr-test-repo:latest
+      credentials:
+        username: ecr-aws-user
+        password: ${{ secrets.AWS_PASSWORD }}
       
-      - name: Run ECR image
+    steps:
+      - name: Run Docker image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ecr-test-repo
-          IMAGE_TAG: ${{ github.sha }}
+          IMAGE_TAG: latest ##${{ github.sha }}
         run: docker run --rm $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+    # steps:
+    #   - name: Github Checkout
+    #     uses: actions/checkout@v2
+    #   - name: Configure AWS credentials
+    #     uses: aws-actions/configure-aws-credentials@v1
+    #     with:
+    #       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    #       aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    #       aws-region: ap-south-1
+
+    #   - name: Login to Amazon ECR
+    #     id: login-ecr
+    #     uses: aws-actions/amazon-ecr-login@v1
+      
+    #   - name: Run ECR image
+    #     env:
+    #       ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+    #       ECR_REPOSITORY: ecr-test-repo
+    #       IMAGE_TAG: latest ##${{ github.sha }}
+    #     run: docker run --rm $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG

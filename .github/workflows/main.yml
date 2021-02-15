@@ -46,7 +46,7 @@ jobs:
   get_ecr_image:
   
     runs-on: [self-hosted, ecr-label]
-    needs: build
+    # needs: build
 
     # container:
     #   image: 133615223499.dkr.ecr.ap-south-1.amazonaws.com/ecr-test-repo:latest

@@ -1,1 +1,1 @@
-print("Hello World, This repo is for ecr demo.")
+print("Hello World, This is running inside a docker container.")

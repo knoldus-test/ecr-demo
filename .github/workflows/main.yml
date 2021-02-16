@@ -51,7 +51,7 @@ jobs:
       
     steps:
       - name: Run Python script
-        run: pyhton3 hello_world.py
+        run: python3 hello_world.py
 
     # steps:
     #   # - name: Github Checkout

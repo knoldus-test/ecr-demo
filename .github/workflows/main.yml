@@ -1,12 +1,9 @@
-# This is a basic workflow to help you get started with Actions
-
 name: ECR CI Demo
 
 on:
 
   push:
     branches: [ master ]
-
 
 jobs:
 
@@ -50,7 +47,7 @@ jobs:
         password: ${{ secrets.ECR_PASSWORD }}
       
     steps:
-      - name: Run Python script
+      - name: Run Python script from container
         run: python3 /src/hello_world.py
 
     # steps:

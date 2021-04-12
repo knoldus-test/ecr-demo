@@ -3,13 +3,15 @@ name: ECR CI Demo
 on:
 
   push:
-    branches: [ master ]
+    branches: [ sakshi-ecr-demo ]
 
 jobs:
 
   build:
     name: Build and Push Docker Image to ECR
     runs-on: [self-hosted, ecr-label]
+    container:
+      image: python:3.8-alpine
 
     steps:
       - name: Github Checkout

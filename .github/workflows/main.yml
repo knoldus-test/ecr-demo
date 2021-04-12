@@ -9,7 +9,7 @@ jobs:
 
   build:
     name: Build and Push Docker Image to ECR
-    runs-on: [self-hosted, ecr-label]
+    runs-on: ubuntu-latest  # [self-hosted, ecr-label]
     container:
       image: python:3.8-alpine
 

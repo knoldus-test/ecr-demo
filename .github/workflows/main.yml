@@ -9,7 +9,7 @@ jobs:
 
   build:
     name: Build and Push Docker Image to ECR
-    runs-on: [self-hosted, ecr-label]
+    runs-on: ubuntu-latest
 
     steps:
       - name: Github Checkout
@@ -37,7 +37,7 @@ jobs:
   get_ecr_image:
     name: Pull Image from AWS ECR
   
-    runs-on: [self-hosted, ecr-label]
+    runs-on: ubuntu-latest
     needs: build
 
     container:

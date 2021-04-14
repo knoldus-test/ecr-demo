@@ -16,7 +16,7 @@ def encrypt(raw_public_key: str, secret_value: str) -> str:
 
 if __name__ == '__main__':
 
-    get_public_key = requests.get(f'https://api.github.com/repos/ORG/REPOSITORY/actions/secrets/public-key',
+    get_public_key = requests.get(f'https://api.github.com/repos/knoldus-test/ecr-demo/actions/secrets/public-key',
                                   headers={'Accept': 'application/vnd.github.v3+json',
                                            'Authorization': 'token ' + os.environ['GH_API_ACCESS_TOKEN']})
     if get_public_key.ok is False:

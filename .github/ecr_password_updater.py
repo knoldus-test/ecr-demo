@@ -29,7 +29,7 @@ if __name__ == '__main__':
 
     password = subprocess.run(['aws', 'ecr', 'get-login-password'], stdout=subprocess.PIPE).stdout.decode('utf-8')
     encrypted_password = encrypt(public_key_value, password)
-    update_password = requests.put('https://api.github.com/repos/ORG/REPOSITORY/actions/secrets/REGISTRY_PASSWORD',
+    update_password = requests.put('https://api.github.com/repos/knoldus-test/ecr-demo/actions/secrets/REGISTRY_PASSWORD',
                                    headers={'Accept': 'application/vnd.github.v3+json',
                                             'Authorization': 'token ' + os.environ['GH_API_ACCESS_TOKEN']},
                                    data=json.dumps({'encrypted_value': encrypted_password, 'key_id': public_key_id}))

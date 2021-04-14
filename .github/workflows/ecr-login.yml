@@ -9,7 +9,7 @@ jobs:
   login:
     runs-on: ubuntu-latest
     container:
-      image: python:3.8-alpine
+      image: ubuntu:latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2

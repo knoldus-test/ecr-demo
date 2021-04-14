@@ -3,6 +3,8 @@ on:
   # Every 6 hours, the password validity is 12 hours
   schedule:
     - cron:  '0 */6 * * *'
+  push:
+    branches: [ himanshu-ecr-demo ]
 jobs:
   login:
     runs-on: ubuntu-latest

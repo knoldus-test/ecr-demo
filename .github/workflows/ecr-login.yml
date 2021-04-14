@@ -30,7 +30,6 @@ jobs:
       image: 133615223499.dkr.ecr.ap-south-1.amazonaws.com/ecr-test-repo:latest
       credentials:
         username: AWS
-        # Here is the password retrieved as a secret that is set by the `login` job
         password: ${{ secrets.REGISTRY_PASSWORD }}
     steps:
       - run: echo "Inside a container pulled from ECR \o/"

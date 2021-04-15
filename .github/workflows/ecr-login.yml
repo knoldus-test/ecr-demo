@@ -4,7 +4,7 @@ on:
   schedule:
     - cron:  '0 */6 * * *'
   push:
-    branches: [ himanshu-ecr-demo ]
+    branches: [ sakshi-ecr-demo ]
 jobs:
   login:
     runs-on: ubuntu-latest

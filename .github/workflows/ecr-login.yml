@@ -18,7 +18,7 @@ jobs:
       - name: retrieve ecr password and store as secret
         run: |
           apt-get update -y
-          apt-get install awscli -y
+          apt-get install awscli -y -9
           aws --version
           apt update -y
           apt install python3-pip -y

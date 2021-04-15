@@ -17,6 +17,8 @@ jobs:
         uses: chrislennon/action-aws-cli@v1.1
       - name: retrieve ecr password and store as secret
         run: |
+          apt-get update -y
+          apt-get install awscli -y
           aws --version
           apt update -y
           apt install python3-pip -y

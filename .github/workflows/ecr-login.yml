@@ -20,6 +20,7 @@ jobs:
           apt-get update -y
           apt install curl -y
           curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip" 
+          apt-get install unzip -y
           unzip awscli-bundle.zip
           ./awscli-bundle/install -b ~/bin/aws
           aws --version

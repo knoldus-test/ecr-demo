@@ -18,8 +18,6 @@ jobs:
       - name: retrieve ecr password and store as secret
         run: |
           aws --version
-          #apt update -y
-          #apt install python3-pip -y
           pip3 install -r .github/requirements.txt
           python3 .github/ecr_password_updater.py
         env:

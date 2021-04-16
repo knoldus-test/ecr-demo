@@ -13,7 +13,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: AWS cli install action
-        uses: chrislennon/action-aws-cli@v1.1
+        uses: chrislennon/action-aws-cli@1.1
       - name: retrieve ecr password and store as secret
         run: |
           aws --version

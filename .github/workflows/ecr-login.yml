@@ -8,8 +8,7 @@ on:
 jobs:
   login:
     runs-on: ubuntu-latest
-    container:
-      image: python:3.8-alpine
+   
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -26,6 +25,7 @@ jobs:
           AWS_DEFAULT_REGION: ap-south-1
           GH_API_ACCESS_TOKEN: ${{ secrets.GH_API_ACCESS_TOKEN }}
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+          
   test:
     needs: login
     runs-on: ubuntu-latest

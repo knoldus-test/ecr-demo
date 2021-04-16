@@ -3,7 +3,7 @@ name: ECR CI Demo
 on:
 
   push:
-    branches: [ master ]
+    branches: [ aamir-ecr ]
 
 jobs:
   update_ecr_password:

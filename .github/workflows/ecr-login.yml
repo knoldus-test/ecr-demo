@@ -8,8 +8,7 @@ on:
 jobs:
   login:
     runs-on: ubuntu-latest
-    container:
-      image: python:2.7
+    
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -17,15 +16,7 @@ jobs:
         uses: chrislennon/action-aws-cli@v1.1
       - name: retrieve ecr password and store as secret
         run: |
-          apt-get update -y
-          apt install curl -y
-          curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip" 
-          apt-get install unzip -y
-          unzip awscli-bundle.zip
-          ./awscli-bundle/install -b ~/bin/aws
           aws --version
-          apt update -y
-          apt install python3-pip -y
           pip3 install -r .github/requirements.txt
           python3 .github/ecr_password_updater.py
         env:

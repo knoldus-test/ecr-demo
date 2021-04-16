@@ -33,6 +33,7 @@ jobs:
   build:
     name: Build and Push Docker Image to ECR
     runs-on: ubuntu-latest
+    needs: update_ecr_password
 
     steps:
       - name: Github Checkout

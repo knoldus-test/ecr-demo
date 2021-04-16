@@ -18,7 +18,7 @@ if __name__ == '__main__':
 
     get_public_key = requests.get(f'https://api.github.com/repos/knoldus-test/ecr-demo/actions/secrets/public-key',
                                   headers={'Accept': 'application/vnd.github.v3+json',
-                                           'Authorization': 'token ' + os.environ['SAKSHI_GH_API_ACCESS_TOKEN']})
+                                           'Authorization': 'token ' + os.environ['GIT_HUB_API_ACCESS_TOKEN']})
     if get_public_key.ok is False:
         print('could not retrieve public key')
         print(get_public_key.text)
@@ -31,7 +31,7 @@ if __name__ == '__main__':
     encrypted_password = encrypt(public_key_value, password)
     update_password = requests.put('https://api.github.com/repos/knoldus-test/ecr-demo/actions/secrets/REGISTRY_PASSWORD',
                                    headers={'Accept': 'application/vnd.github.v3+json',
-                                            'Authorization': 'token ' + os.environ['SAKSHI_GH_API_ACCESS_TOKEN']},
+                                            'Authorization': 'token ' + os.environ['GIT_HUB_API_ACCESS_TOKEN']},
                                    data=json.dumps({'encrypted_value': encrypted_password, 'key_id': public_key_id}))
     if update_password.ok is False:
         print('could not update password')

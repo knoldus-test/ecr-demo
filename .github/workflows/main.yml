@@ -9,6 +9,7 @@ jobs:
   update_ecr_password:
     name: Update Secrets
     runs-on: ubuntu-latest
+    
     steps:
       - name: Checkout
         uses: actions/checkout@v2

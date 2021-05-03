@@ -6,61 +6,61 @@ on:
     branches: [ aamir-ecr ]
 
 jobs:
-  update_ecr_password:
-    name: Update Secrets
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-south-1
-      - name: Retrieve ecr password and Store as secret
-        run: |
-          pip3 install -r .github/requirements.txt
-          python3 .github/ecr_password_updater.py
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: ap-south-1
-          GIT_HUB_API_ACCESS_TOKEN: ${{ secrets.GIT_HUB_API_ACCESS_TOKEN }}
+  # update_ecr_password:
+  #   name: Update Secrets
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
+  #     - name: Configure AWS credentials
+  #       uses: aws-actions/configure-aws-credentials@v1
+  #       with:
+  #         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  #         aws-region: ap-south-1
+  #     - name: Retrieve ecr password and Store as secret
+  #       run: |
+  #         pip3 install -r .github/requirements.txt
+  #         python3 .github/ecr_password_updater.py
+  #       env:
+  #         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  #         AWS_DEFAULT_REGION: ap-south-1
+  #         GIT_HUB_API_ACCESS_TOKEN: ${{ secrets.GIT_HUB_API_ACCESS_TOKEN }}
 
-  build:
-    name: Build and Push Docker Image to ECR
-    runs-on: ubuntu-latest
-    needs: update_ecr_password
+  # build:
+  #   name: Build and Push Docker Image to ECR
+  #   runs-on: ubuntu-latest
+  #   needs: update_ecr_password
 
-    steps:
-      - name: Github Checkout
-        uses: actions/checkout@v2
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-south-1
+  #   steps:
+  #     - name: Github Checkout
+  #       uses: actions/checkout@v2
+  #     - name: Configure AWS credentials
+  #       uses: aws-actions/configure-aws-credentials@v1
+  #       with:
+  #         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  #         aws-region: ap-south-1
 
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
+  #     - name: Login to Amazon ECR
+  #       id: login-ecr
+  #       uses: aws-actions/amazon-ecr-login@v1
       
-      - name: Build, tag, and push image to Amazon ECR
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: ecr-test-repo
-          IMAGE_TAG: latest ##${{ github.sha }}
-        run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+  #     - name: Build, tag, and push image to Amazon ECR
+  #       env:
+  #         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+  #         ECR_REPOSITORY: ecr-test-repo
+  #         IMAGE_TAG: latest ##${{ github.sha }}
+  #       run: |
+  #         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+  #         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
   
   get_ecr_image:
     name: Pull Image from AWS ECR
   
     runs-on: ubuntu-latest
-    needs: build
+    # needs: build
 
     container:
       image: 133615223499.dkr.ecr.ap-south-1.amazonaws.com/ecr-test-repo:latest
@@ -71,24 +71,3 @@ jobs:
     steps:
       - name: Run Python script from container
         run: python3 /src/hello_world.py
-
-    # steps:
-    #   # - name: Github Checkout
-    #   #   uses: actions/checkout@v2
-    #   - name: Configure AWS credentials
-    #     uses: aws-actions/configure-aws-credentials@v1
-    #     with:
-    #       # aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-    #       # aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-    #       aws-region: ap-south-1
-
-    #   - name: Login to Amazon ECR
-    #     id: login-ecr
-    #     uses: aws-actions/amazon-ecr-login@v1
-      
-    #   - name: Run ECR image
-    #     env:
-    #       ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-    #       ECR_REPOSITORY: ecr-test-repo
-    #       IMAGE_TAG: latest ##${{ github.sha }}
-    #     run: docker run --rm $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG

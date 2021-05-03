@@ -1,11 +1,23 @@
 name: ECR CI Demo
 
+env:
+  ECR_PASSWORD: ${{ secrets.ECR_PASSWORD }}
+  
+
 on:
 
   push:
     branches: [ aamir-ecr ]
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: print password
+        run: echo $ECR_PASSWORD
+
+
   # update_ecr_password:
   #   name: Update Secrets
   #   runs-on: ubuntu-latest

@@ -84,3 +84,5 @@ jobs:
     steps:
       - name: Run Python script from container
         run: python3 /src/hello_world.py
+      - name: Inspect container
+        run: docker inspect 133615223499.dkr.ecr.ap-south-1.amazonaws.com/ecr-test-repo:latest

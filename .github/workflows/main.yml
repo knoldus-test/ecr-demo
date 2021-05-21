@@ -87,4 +87,5 @@ jobs:
       - name: Inspect container
         run: |
           containerId=`docker ps -a | awk '{if ($2 =="133615223499.dkr.ecr.ap-south-1.amazonaws.com/ecr-test-repo:latest") print $1}'`
-          docker stats $containerId
+          echo $containerId
+          docker stats --no-stream $containerId

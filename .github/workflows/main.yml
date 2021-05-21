@@ -79,10 +79,12 @@ jobs:
         username: AWS
         password: ${{ secrets.ECR_PASSWORD }}
       options: 
-        --memory=8g
+        --memory=4g
       
     steps:
       - name: Run Python script from container
         run: python3 /src/hello_world.py
       - name: Inspect container
-        run: docker stats
+        run: |
+          docker ps -a
+          docker stats

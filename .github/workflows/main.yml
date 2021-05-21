@@ -86,5 +86,5 @@ jobs:
         run: python3 /src/hello_world.py
       - name: Inspect container
         run: |
-          docker ps -a
-          docker stats
+          containerId=`docker ps -a | awk '{if ($2 =="133615223499.dkr.ecr.ap-south-1.amazonaws.com/ecr-test-repo:latest") print $1}'`
+          docker stats $containerId

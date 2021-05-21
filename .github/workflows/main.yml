@@ -79,7 +79,7 @@ jobs:
         username: AWS
         password: ${{ secrets.ECR_PASSWORD }}
       options: 
-        --memory=4g
+        --memory=8g
       
     steps:
       - name: Run Python script from container

@@ -80,7 +80,7 @@ jobs:
         password: ${{ secrets.ECR_PASSWORD }}
       options: 
         --memory=8g
-        --cpus=4
+        --cpus=2
         --gpus=all
       
     steps:

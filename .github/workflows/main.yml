@@ -80,6 +80,9 @@ jobs:
         password: ${{ secrets.ECR_PASSWORD }}
       options: 
         --memory=8g
+        --cpu-percent=100
+        --cpus=4
+        --gpus=all
       
     steps:
       - name: Run Python script from container

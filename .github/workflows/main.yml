@@ -81,7 +81,6 @@ jobs:
       options: 
         --memory=8g
         --cpus=2
-        --gpus=all
       
     steps:
       - name: Run Python script from container
